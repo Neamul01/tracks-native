@@ -17,6 +17,7 @@ import TrackCreateScreen from './src/screens/TrackCreateScreen';
 import AccountScreen from './src/screens/AccountScreen';
 import TrackListScreen from './src/screens/TrackListScreen';
 import TrackDetailsScreen from './src/screens/TrackDetailsScreen';
+import {Provider as AuthProvider} from './src/contexts/AuthContext';
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -53,23 +54,25 @@ const MainTabs = () => (
 
 function App(): JSX.Element {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="loginFlow"
-          component={AuthStack}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="mainFlow"
-          component={MainTabs}
-          options={{
-            headerShown: false,
-            presentation: 'modal',
-          }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <AuthProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="loginFlow"
+            component={AuthStack}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="mainFlow"
+            component={MainTabs}
+            options={{
+              headerShown: false,
+              presentation: 'modal',
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </AuthProvider>
   );
 }
 
